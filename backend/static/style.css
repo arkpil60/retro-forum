@@ -1,0 +1,79 @@
+/* ====================================================================
+   БАЗОВЫЕ СТИЛИ (Общие для всех тем: шрифты, размеры таблиц, отступы)
+   ==================================================================== */
+body {
+    font-family: "Lucida Grande", Verdana, Helvetica, Arial, sans-serif;
+    font-size: 12px;
+    margin: 20px;
+}
+table.forum-table, table.post-table {
+    width: 100%;
+    border-spacing: 1px;
+    border-style: solid;
+    border-width: 1px;
+}
+th {
+    font-weight: bold;
+    font-size: 13px;
+    padding: 8px;
+    text-align: left;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+td {
+    padding: 10px;
+    border-bottom: 1px solid #D3D3D3;
+}
+td.user-profile {
+    width: 150px;
+    border-right: 1px solid #D3D3D3;
+    vertical-align: top;
+    text-align: center;
+}
+td.post-text {
+    vertical-align: top;
+    padding: 15px;
+    font-size: 13px;
+    line-height: 1.5;
+}
+.username { font-weight: bold; font-size: 13px; display: block; margin-bottom: 4px; }
+.user-title { font-size: 11px; display: block; margin-bottom: 8px; }
+.avatar { width: 80px; height: 80px; border: 1px solid #D3D3D3; background: #FFF; padding: 2px; }
+.post-date { font-size: 11px; float: right; }
+.nav-links { margin-bottom: 10px; font-weight: bold; }
+.time-capsule { padding: 10px; border: 1px dashed; margin-bottom: 15px; font-weight: bold; }
+.reply-box { border: 1px solid; padding: 15px; margin-top: 20px; }
+.reply-box textarea { width: 100%; height: 100px; margin-top: 5px; margin-bottom: 10px; font-family: inherit; }
+.theme-selector { margin-bottom: 15px; text-align: right; font-size: 11px; }
+
+/* ====================================================================
+   ВАРИАНТ 1: КЛАССИЧЕСКАЯ СИНЯЯ ТЕМА (theme-classic)
+   ==================================================================== */
+body.theme-classic { background-color: #E5EDF3; color: #333333; }
+body.theme-classic table.forum-table, body.theme-classic table.post-table { background-color: #FFFFFF; border-color: #105289; }
+body.theme-classic th { background-image: linear-gradient(to bottom, #A2C3EC, #6CA3DD); color: #FFFFFF; border-color: #105289; }
+body.theme-classic .row1 { background-color: #F6F9FC; }
+body.theme-classic .row2 { background-color: #EAEFF4; }
+body.theme-classic td.user-profile { background-color: #F2F5F8; }
+body.theme-classic td.post-text { background-color: #FAFCFE; }
+body.theme-classic .username, body.theme-classic .nav-links a { color: #105289; text-decoration: none; }
+body.theme-classic .user-title { color: #555555; }
+body.theme-classic .post-date { color: #777777; }
+body.theme-classic .time-capsule { background: #FFF; border-color: #105289; color: #105289; }
+body.theme-classic .reply-box { background: #EAEFF4; border-color: #105289; }
+
+/* ====================================================================
+   ВАРИАНТ 2: ЗЕЛЕНАЯ ТЕМА В СТИЛЕ 4CHAN (theme-green) — СЛЕГКА ПОТЕМНЕЕ
+   ==================================================================== */
+body.theme-green { background-color: #EEF2EB; color: #2E3B2E; } /* Более глубокий, серо-зеленый фон */
+body.theme-green table.forum-table, body.theme-green table.post-table { background-color: #FFFFFF; border-color: #618A61; } /* Уплотненные рамки */
+body.theme-green th { background-color: #D2E3CB; color: #1E4D2B; font-size: 12px; border-color: #618A61; } /* Насыщенная шапка */
+body.theme-green .row1 { background-color: #F4F9F2; } /* Чередование строк потемнее */
+body.theme-green .row2 { background-color: #E6EFE2; }
+body.theme-green td.user-profile { background-color: #EDF4EA; }
+body.theme-green td.post-text { background-color: #FFFFFA; }
+body.theme-green .username, body.theme-green .nav-links a { color: #1E4D2B; text-decoration: none; }
+body.theme-green .user-title { color: #4F634F; }
+body.theme-green .post-date { color: #4F634F; }
+body.theme-green .time-capsule { background: #FFF; border-color: #1E4D2B; color: #1E4D2B; }
+body.theme-green .reply-box { background: #E6EFE2; border-color: #618A61; }

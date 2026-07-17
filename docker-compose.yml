@@ -1,0 +1,20 @@
+services:
+  # Наш графический интерфейс для базы данных
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: forum_pgadmin
+    restart: always
+    environment:
+      # Пароль для входа в саму панель в браузере (придумайте свой)
+      PGADMIN_DEFAULT_EMAIL: 'russustepan60@gmail.com'
+      PGADMIN_DEFAULT_PASSWORD: 'ParolOtBU_123'
+      PGADMIN_LISTEN_ADDRESS: '0.0.0.0' # Насильно открываем сеть контейнера
+    ports:
+      # Открываем порт 8080 для доступа через браузер в локальной сети
+      - "8080:80"
+    volumes:
+      # Папка на ноуте, где pgadmin будет хранить свои настройки (чтобы не слетали)
+      - pgadmin_data:/var/lib/pgadmin
+
+volumes:
+  pgadmin_data:
