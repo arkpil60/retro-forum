@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Навигационная цепочка -->
+<p face="Verdana"><font size="2">
+    <a href="/">Главная</a> &raquo; <a href="/category/{{ category[0] }}">{{ category[1] }}</a> &raquo; <b>Создание новой темы</b>
+</font></p>
+
+<!-- Вывод ошибок валидации -->
+{% if error %}
+    <p><font color="#FF0000"><b>Ошибка: {{ error }}</b></font></p>
+{% endif %}
+
+<form action="/category/{{ category[0] }}/create" method="POST">
+    <table cellpadding="4" cellspacing="1" bgcolor="#105289" border="0" width="100%">
+        <tr>
+            <td bgcolor="#105289" colspan="2">
+                <font color="#FFFFFF" size="2" face="Verdana"><b>Новая тема в разделе: {{ category[1] }}</b></font>
+            </td>
+        </tr>
+        <!-- Поле заголовка -->
+        <tr>
+            <td bgcolor="#FAFAFA" width="20%" face="Verdana"><font size="2"><b>Заголовок темы:</b></font></td>
+            <td bgcolor="#FAFAFA">
+                <input type="text" name="title" maxlength="255" style="width: 98%; font-family: Verdana; font-size: 13px;">
+            </td>
+        </tr>
+        <!-- Поле текста сообщения -->
+        <tr>
+            <td bgcolor="#FAFAFA" valign="top" face="Verdana"><font size="2"><b>Текст сообщения:</b></font></td>
+            <td bgcolor="#FAFAFA">
+                <textarea name="content" rows="15" style="width: 98%; font-family: Verdana; font-size: 13px; resize: vertical;"></textarea>
+            </td>
+        </tr>
+        <!-- Кнопка отправки -->
+        <tr>
+            <td bgcolor="#ECECEC" colspan="2" align="center">
+                <input type="submit" value="Отправить тему" style="font-family: Verdana; font-size: 13px; font-weight: bold; padding: 4px 10px;">
+            </td>
+        </tr>
+    </table>
+</form>
+{% endblock %}

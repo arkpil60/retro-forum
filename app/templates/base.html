@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Something boring</title>
+</head>
+<body bgcolor="#E5EDF3" text="#000000" link="#006699" vlink="#5493B4">
+
+    <!-- main table -->
+    <table width="800" align="center" cellpadding="10" cellspacing="1" bgcolor="#FFFFFF" border="1">
+        
+        <tr>
+            <td bgcolor="#105289" align="center">
+                <font color="#FFFFFF" size="6" face="Verdana, Arial, Helvetica">
+                    <b>Something boring</b>
+                </font>
+                <br>
+                <font color="#FFA34F" size="2" face="Verdana">
+                    Добро пожаловать!
+                </font>
+            </td>
+        </tr>
+
+        <!-- Панель навигации (Меню) -->
+        <tr>
+            <td bgcolor="#ECECEC" style="padding: 6px 10px;">
+                <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                    <tr>
+                        <td align="left">
+                            <font size="2" face="Verdana">
+                                <b>&raquo; <a href="/">Главная страница форума</a></b>
+                            </font>
+                        </td>
+                        <td align="right">
+                            <font size="2" face="Verdana">
+                                <!-- Проверяем: если пользователь авторизован (есть ID в сессии) -->
+                                {% if session.get('user_id') %}
+                                    Привет, <b>{{ session.get('username') }}</b>! 
+                                    [ <a href="/logout"><b><font color="#FF0000">Выход</font></b></a> ]
+                                <!-- Если пользователь зашел анонимно -->
+                                {% else %}
+                                    [ <a href="/login">Вход</a> ] [ <a href="/register">Регистрация</a> ]
+                                {% endif %}
+                            </font>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+
+        <!-- main content -->
+        <tr>
+            <td valign="top" height="400" face="Verdana">
+                {% block content %}
+                <!-- ??? -->
+                {% endblock %}
+            </td>
+        </tr>
+
+        <!-- basement -->
+        <tr>
+            <td bgcolor="#ECECEC" align="center">
+                <font size="1" face="Verdana" color="#444444">
+                    Текущее время на форуме: <span id="retro-clock">{{ convert_to_retro(current_time).strftime('%Y.%m.%d %H:%M:%S') }}</span>
+                    <br>
+                    Работает на Flask 3.1 + PostgreSQL 17 | Сделано в 2006
+                </font>
+            </td>
+        </tr>
+    </table>
+
+<script>
+function startRetroClock() {
+    const clockElement = document.getElementById('retro-clock');
+    if (!clockElement) return;
+
+    let currentTime = new Date(clockElement.innerText);
+
+    setInterval(() => {
+        currentTime.setSeconds(currentTime.getSeconds() + 1);
+
+        const day = String(currentTime.getDate()).padStart(2, '0');
+        const month = String(currentTime.getMonth() + 1).padStart(2, '0');
+        const year = currentTime.getFullYear();
+        const hours = String(currentTime.getHours()).padStart(2, '0');
+        const minutes = String(currentTime.getMinutes()).padStart(2, '0');
+        const seconds = String(currentTime.getSeconds()).padStart(2, '0');
+
+        // Выводим обновленный текст на экран
+        clockElement.innerText = `${year}.${month}.${day} ${hours}:${minutes}:${seconds}`;
+    }, 1000);
+}
+
+// Запускаем наши часы сразу, как только страница загрузилась в браузере
+window.onload = startRetroClock;
+</script>
+
+</body>
+</html>

@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Навигация -->
+<p face="Verdana"><font size="2">
+    <a href="/">Главная</a> &raquo; <b>Тема: {{ topic[1] }}</b>
+</font></p>
+
+<!-- Если тема закрыта, выводим предупреждение -->
+{% if topic[3] %}
+    <table width="100%" bgcolor="#FFD2D2" border="1" cellpadding="5" cellspacing="0" style="border-color: #FF0000;">
+        <tr>
+            <td align="center"><font size="2" face="Verdana" color="#B70000"><b>🔒 ЭТА ТЕМА ЗАКРЫТА. ВЫ НЕ МОЖЕТЕ ОСТАВЛЯТЬ ЗДЕСЬ ОТВЕТЫ.</b></font></td>
+        </tr>
+    </table>
+    <br>
+{% endif %}
+
+<!-- Таблица сообщений -->
+<table width="100%" cellpadding="6" cellspacing="1" bgcolor="#105289" border="0">
+    {% for post in posts %}
+    <tr>
+        <td width="25%" bgcolor="#ECECEC" valign="top" face="Verdana">
+            <font size="2">
+                {% if post[3] %}
+                    <b><font color="#006699">{{ post[3] }}</font></b>
+                {% else %}
+                    <font color="#666666"><i>Гость</i></font>
+                {% endif %}
+            </font>
+        </td>
+        <td width="75%" bgcolor="#FAFAFA" valign="top" face="Verdana">
+            <font size="1" color="#666666">Добавлено: {{ convert_to_retro(post[2]).strftime('%Y.%m.%d %H:%M') }}</font>
+            <hr size="1" color="#D1D7DC">
+            <font size="2">{{ post[1] }}</font>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<!-- БЛОК БЫСТРОГО ОТВЕТА (Прямо под сообщениями) -->
+{% if not topic[3] %} <!-- Если тема открыта -->
+    {% if session.get('user_id') %}
+        <form action="/topic/{{ topic[0] }}" method="POST">
+            <table width="100%" cellpadding="4" cellspacing="1" bgcolor="#105289" border="0">
+                <tr bgcolor="#105289">
+                    <td><font color="#FFFFFF" size="2" face="Verdana"><b>Быстрый ответ</b></font></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FAFAFA" align="center">
+                        <textarea name="content" rows="6" style="width: 98%; font-family: Verdana; font-size: 13px; resize: vertical;" placeholder="Введите ваше сообщение..."></textarea>
+                    </td>
+                </tr>
+                <tr bgcolor="#ECECEC">
+                    <td align="center">
+                        <input type="submit" value="Отправить быстрый ответ" style="font-family: Verdana; font-size: 12px; font-weight: bold;">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    {% else %}
+        <table width="100%" bgcolor="#ECECEC" border="1" cellpadding="6" cellspacing="0">
+            <tr>
+                <td align="center"><font size="2" face="Verdana" color="#666666">Чтобы оставить ответ, пожалуйста, <a href="/login">войдите</a> на форум.</font></td>
+            </tr>
+        </table>
+    {% endif %}
+{% endif %}
+
+{% endblock %}

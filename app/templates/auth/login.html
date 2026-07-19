@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<p><b>Вход на форум</b></p>
+
+{% if error %}
+    <p><font color="#FF0000"><b>Ошибка: {{ error }}</b></font></p>
+{% endif %}
+
+<form action="/login" method="POST">
+    <table cellpadding="4" cellspacing="1" bgcolor="#105289" border="0" width="400">
+        <tr>
+            <td bgcolor="#105289" colspan="2">
+                <font color="#FFFFFF" size="2" face="Verdana"><b>Авторизация</b></font>
+            </td>
+        </tr>
+        <tr>
+            <td bgcolor="#FAFAFA" width="150" face="Verdana"><font size="2">Имя пользователя:</font></td>
+            <td bgcolor="#FAFAFA"><input type="text" name="username" style="width: 200px;"></td>
+        </tr>
+        <tr>
+            <td bgcolor="#FAFAFA" face="Verdana"><font size="2">Пароль:</font></td>
+            <td bgcolor="#FAFAFA"><input type="password" name="password" style="width: 200px;"></td>
+        </tr>
+        <tr>
+            <td bgcolor="#ECECEC" colspan="2" align="center">
+                <input type="submit" value="Войти">
+            </td>
+        </tr>
+    </table>
+</form>
+
+<p><font size="2" face="Verdana">Еще не создали аккаунт? <a href="/register">Зарегистрируйтесь здесь</a>.</font></p>
+{% endblock %}

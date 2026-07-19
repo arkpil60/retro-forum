@@ -1,0 +1,81 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- Навигационная цепочка в стиле phpBB -->
+<p face="Verdana"><font size="2">
+    <a href="/">Главная</a> &raquo; <b>{{ category[1] }}</b>
+</font></p>
+
+<!-- Описание текущего раздела -->
+<p face="Verdana"><font size="2" color="#444444"><i>{{ category[2] }}</i></font></p>
+
+<!-- Панель управления разделом (Кнопка Новая тема) -->
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+    <tr>
+        <td>
+            <!-- Кнопку увидят только авторизованные пользователи -->
+            {% if session.get('user_id') %}
+                <table bgcolor="#ECECEC" border="1" cellpadding="4" cellspacing="0">
+                    <tr>
+                        <td><a href="/category/{{ category[0] }}/create"><b><font size="2" face="Verdana" color="#006699">+ Создать тему</font></b></a></td>
+                    </tr>
+                </table>
+            {% else %}
+                <font size="2" face="Verdana" color="#666666"><i>Войдите или зарегистрируйтесь, чтобы создавать темы.</i></font>
+            {% endif %}
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<!-- Главная таблица списка тем -->
+<table width="100%" cellpadding="5" cellspacing="1" bgcolor="#105289" border="0">
+    <tr bgcolor="#105289">
+        <td width="60%"><font color="#FFFFFF" size="2" face="Verdana"><b>Тема</b></font></td>
+        <td width="20%" align="center"><font color="#FFFFFF" size="2" face="Verdana"><b>Автор</b></font></td>
+        <td width="20%" align="center"><font color="#FFFFFF" size="2" face="Verdana"><b>Дата создания</b></font></td>
+    </tr>
+
+    <!-- Цикл Jinja2: перебираем темы из базы данных -->
+        <!-- Находим этот цикл в файле category.html -->
+    {% for topic in topics %}
+    <tr>
+        <td bgcolor="#FAFAFA" face="Verdana">
+            <!-- 1. ИСПРАВИЛИ: тут должен быть ID темы (topic[0]) и заголовок (topic[1]) -->
+            <a href="/topic/{{ topic[0] }}"><b><font size="2" color="#006699">{{ topic[1] }}</font></b></a>
+            
+            <!-- 2. ИСПРАВИЛИ: проверка флага закрытия темы (topic[3]) -->
+            {% if topic[3] %}
+                <font size="1" color="#FF0000" face="Verdana"><b>[ Закрыто ]</b></font>
+            {% endif %}
+        </td>
+        
+        <td bgcolor="#FAFAFA" align="center" face="Verdana">
+            <font size="2">
+                <!-- 3. ИСПРАВИЛИ: вывод имени автора темы (topic[4]) -->
+                {% if topic[4] %}
+                    <b>{{ topic[4] }}</b>
+                {% else %}
+                    <font color="#666666"><i>Гость</i></font>
+                {% endif %}
+            </font>
+        </td>
+        
+        <td bgcolor="#FAFAFA" align="center" face="Verdana">
+            <font size="1" color="#444444">
+                <!-- 4. ИСПРАВИЛИ: передача даты создания (topic[2]) в ретро-конвертер -->
+                {{ convert_to_retro(topic[2]).strftime('%Y.%m.%d %H:%M') }}
+            </font>
+        </td>
+    </tr>
+    <!-- Если тем в разделе еще нет вовсе -->
+    {% else %}
+    <tr>
+        <td bgcolor="#FAFAFA" colspan="3" align="center" face="Verdana">
+            <font size="2" color="#666666">В этом разделе еще нет ни одной темы. Станьте первым!</font>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

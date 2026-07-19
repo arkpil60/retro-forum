@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<!-- БЛОК СТАТИСТИКИ И ОНЛАЙНА В САМОМ ВЕРХУ -->
+<table width="100%" cellpadding="4" cellspacing="1" bgcolor="#105289" border="0">
+    <!-- Секция: Кто на форуме -->
+    <tr>
+        <td bgcolor="#105289">
+            <font color="#FFFFFF" size="2" face="Verdana"><b>Кто сейчас на форуме</b></font>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FAFAFA" face="Verdana">
+            <font size="2">
+                В сети за последние 5 минут: 
+                <b>
+                {% if online_users %}
+                    {{ online_users|join(', ') }}
+                {% else %}
+                    нет зарегистрированных пользователей
+                {% endif %}
+                </b>
+            </font>
+        </td>
+    </tr>
+    
+    <!-- Секция: Статистика -->
+    <tr>
+        <td bgcolor="#105289">
+            <font color="#FFFFFF" size="2" face="Verdana"><b>Статистика</b></font>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FAFAFA" face="Verdana">
+            <font size="2">
+                Всего сообщений: <b>{{ stats[2] }}</b> | 
+                Всего тем: <b>{{ stats[1] }}</b> | 
+                Всего пользователей: <b>{{ stats[0] }}</b>
+            </font>
+        </td>
+    </tr>
+</table>
+
+<br>
+
+<!-- ПЕРЕНЕСЛИ ЗАГОЛОВОК СЮДА -->
+<p face="Verdana"><font size="2"><b>Список разделов форума</b></font></p>
+
+<!-- Главная таблица категорий -->
+<table width="100%" cellpadding="5" cellspacing="1" bgcolor="#105289" border="0">
+    <tr bgcolor="#105289">
+        <td width="70%"><font color="#FFFFFF" size="2" face="Verdana"><b>Форум</b></font></td>
+        <td width="30%" align="center"><font color="#FFFFFF" size="2" face="Verdana"><b>Темы / Посты</b></font></td>
+    </tr>
+
+    {% for category in categories %}
+    <tr>
+        <td bgcolor="#FAFAFA" face="Verdana">
+            <a href="/category/{{ category[0] }}"><b><font size="3" color="#006699">{{ category[1] }}</font></b></a>
+            <br>
+            <font size="2" color="#444444">{{ category[2] }}</font>
+        </td>
+        <td bgcolor="#FAFAFA" align="center" face="Verdana">
+            <font size="2" color="#444444">
+                Темы: <b>{{ category[3] }}</b> / Посты: <b>{{ category[4] }}</b>
+            </font>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+
+<br>
+
+<!-- Таблица объявлений -->
+<table width="100%" cellpadding="4" cellspacing="1" bgcolor="#105289" border="0">
+    <tr>
+        <td bgcolor="#105289">
+            <font color="#FFFFFF" size="2" face="Verdana"><b>Объявления администрации</b></font>
+        </td>
+    </tr>
+    <tr>
+        <td bgcolor="#FAFAFA" face="Verdana">
+            <font size="2">Форум успешно переведен на модульную архитектуру Flask 2.0! Все системы работают в штатном режиме.</font>
+        </td>
+    </tr>
+</table>
+{% endblock %}
